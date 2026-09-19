@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Miki AI — Retail Surveillance & POS Transaction Integrity</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brand-dark': '#10203d',
+            'brand-navy': '#00081e',
+            'surface-light': '#FAFAF9',
+            'surface-product': '#0B1424',
+            'surface-product-elevated': '#111C30',
+            'border-product': '#1E2D4A',
+            'text-primary-dark': '#F1F5F9',
+            'text-muted-dark': '#94A3B8',
+            'text-muted-light': '#6B7280',
+            'signal-accent': '#3FA9F5',
+            'status-success': '#2FA36B',
+            'status-warning': '#D9A441',
+            'status-danger': '#D9534F',
+          },
+          fontFamily: {
+            'sans': ['Inter', 'sans-serif'],
+            'mono': ['JetBrains Mono', 'monospace'],
+          },
+          fontSize: {
+            'display': ['48px', { lineHeight: '56px', letterSpacing: '-0.02em', fontWeight: '500' }],
+            'headline-lg': ['32px', { lineHeight: '40px', letterSpacing: '-0.02em', fontWeight: '500' }],
+            'headline-md': ['24px', { lineHeight: '32px', letterSpacing: '-0.015em', fontWeight: '500' }],
+            'headline-sm': ['20px', { lineHeight: '28px', letterSpacing: '-0.01em', fontWeight: '500' }],
+            'body-lg': ['16px', { lineHeight: '24px', fontWeight: '400' }],
+            'body-md': ['14px', { lineHeight: '20px', fontWeight: '400' }],
+            'body-sm': ['12px', { lineHeight: '16px', fontWeight: '400' }],
+          },
+        },
+      },
+    }
+  </script>
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background-color: #FAFAF9;
+      color: #10203d;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+    }
+    details summary {
+      list-style: none;
+    }
+    details summary::-webkit-details-marker {
+      display: none;
+    }
+    details[open] summary .toggle-icon {
+      transform: rotate(180deg);
+    }
+    .toggle-icon {
+      transition: transform 0.3s ease;
+    }
+    .btn-primary {
+      background-color: #10203d;
+      color: white;
+      padding: 14px 32px;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary:hover {
+      background-color: #1b325e;
+    }
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body>
+
+<!-- 01 — Navigation -->
+<header class="w-full bg-surface-light border-b border-black/5 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-7 h-7 bg-brand-dark rounded-md flex items-center justify-center">
+        <span style="color: white; font-size: 14px; font-weight: 600;">M</span>
+      </div>
+      <span class="text-brand-dark font-semibold">Miki AI</span>
+    </div>
+    <button class="btn-primary">Start a Pilot</button>
+  </div>
+</header>
+
+<!-- 02 — Hero Section -->
+<section class="w-full bg-surface-light py-16 md:py-24">
+  <div class="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <!-- Left: Text -->
+    <div class="flex flex-col gap-6">
+      <h1 class="text-headline-lg md:text-display font-semibold text-brand-dark leading-tight">
+        What your cameras saw. What your till recorded. One answer.
+      </h1>
+      <p class="text-body-lg text-text-muted-light">
+        Autonomous cross-referencing between existing surveillance video and point-of-sale logs to flag retail shrinkage instantly.
+      </p>
+      <div class="flex gap-3">
+        <button class="btn-primary">Start a Pilot</button>
+        <button class="px-6 py-3 border border-brand-dark text-brand-dark rounded-md font-medium hover:bg-black/5 transition-colors">
+          See how it works
+        </button>
+      </div>
+    </div>
+    
+    <!-- Right: Product Interface Mock -->
+    <div class="bg-surface-product border border-border-product rounded-lg p-6 shadow-lg overflow-hidden">
+      <div class="space-y-3">
+        <div class="flex items-center justify-between text-xs font-mono text-text-muted-dark">
+          <span class="text-signal-accent">● LIVE AUDIT 503</span>
+          <span>CHANNEL 06 / TOP REGION</span>
+        </div>
+        <div class="bg-surface-product-elevated rounded p-3 space-y-2 border border-border-product">
+          <div class="text-xs font-mono text-text-primary-dark flex justify-between">
+            <span>AIR-N POS OVERRIDE</span>
+            <span>$1,123.45 UIT</span>
+          </div>
+          <div class="text-xs text-text-muted-dark">
+            → Virtual boundary Cashier Imaging 3 items Scanned + (0mm)
+          </div>
+          <div class="text-xs text-text-muted-dark flex justify-between">
+            <span>TIM ARG(ED) - TXN-AF : 21:22:03</span>
+            <span>REVISION +0mm</span>
+          </div>
+        </div>
+        <div class="bg-signal-accent/10 border border-signal-accent rounded p-3 flex gap-3 text-xs">
+          <span class="text-signal-accent">⚠</span>
+          <span class="text-text-primary-dark">DISCREPANCY DETECTED: 2 ITEMS SCANNED vs 3 ITEMS REMOVED</span>
+        </div>
+        <div class="text-xs text-text-muted-dark">
+          ★ Investigative Queue | Clip #CA-94087 Timestamped
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 — How It Works -->
+<section class="w-full bg-surface-light py-20 border-b border-black/5">
+  <div class="max-w-7xl mx-auto px-4 md:px-8">
+    <h2 class="text-headline-lg font-semibold text-brand-dark mb-12">How It Works</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Step 1 -->
+      <div class="flex flex-col gap-4">
+        <div class="text-2xl font-semibold text-text-muted-light">01</div>
+        <h3 class="text-headline-sm font-semibold text-brand-dark">Connect what you have</h3>
+        <p class="text-body-md text-text-muted-light">
+          Existing cameras, POS, no new hardware.
+        </p>
+      </div>
+      <!-- Step 2 -->
+      <div class="flex flex-col gap-4">
+        <div class="text-2xl font-semibold text-text-muted-light">02</div>
+        <h3 class="text-headline-sm font-semibold text-brand-dark">Miki watches for mismatches</h3>
+        <p class="text-body-md text-text-muted-light">
+          Every transaction checked against what the camera shows.
+        </p>
+      </div>
+      <!-- Step 3 -->
+      <div class="flex flex-col gap-4">
+        <div class="text-2xl font-semibold text-text-muted-light">03</div>
+        <h3 class="text-headline-sm font-semibold text-brand-dark">Get the evidence, not the noise</h3>
+        <p class="text-body-md text-text-muted-light">
+          You get the evidence, not the noise — a short reviewable case, not raw footage.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 — Reconciliation Engine / Data Table -->
+<section class="w-full bg-surface-product py-20">
+  <div class="max-w-7xl mx-auto px-4 md:px-8">
+    <h2 class="text-headline-lg font-semibold text-text-primary-dark mb-8">Reconciliation Engine</h2>
+    
+    <!-- Table Header -->
+    <div class="overflow-x-auto">
+      <div class="bg-surface-product-elevated border border-border-product rounded-lg p-4 font-mono text-xs text-text-muted-dark space-y-3">
+        <div class="flex justify-between pb-3 border-b border-border-product">
+          <span class="text-text-muted-dark">Action Audit Journal | Filter: Discrepancies Daily</span>
+          <span class="text-text-muted-dark">Buffer: 2.3 GB / 6 unverified</span>
+        </div>
+        
+        <!-- Data Rows -->
+        <div class="space-y-2">
+          <div class="flex justify-between text-text-muted-dark">
+            <span>| Timestamp</span>
+            <span>| Register</span>
+            <span>| POS Event</span>
+            <span>| Camera Verification</span>
+            <span>| Discrepancy Status</span>
+            <span>| Action</span>
+          </div>
+          
+          <!-- Row 1 -->
+          <div class="flex justify-between py-2 border-t border-border-product">
+            <span>16:11:34.383</span>
+            <span class="text-text-muted-dark">REG-05</span>
+            <span>3 Grocery Items (56.12)</span>
+            <span>2 Items scanned & cleared</span>
+            <span><span class="px-2 py-1 bg-status-success/20 text-status-success rounded text-xs">Cleared</span></span>
+            <span class="text-text-muted-dark">Archived</span>
+          </div>
+          
+          <!-- Row 2 -->
+          <div class="flex justify-between py-2 border-t border-border-product">
+            <span>16:12:08.029</span>
+            <span class="text-text-muted-dark">REG-02</span>
+            <span>1 Lighting Fixture (34.99)</span>
+            <span>Register shows 1 scanned; 1 carried bagged in satchel</span>
+            <span><span class="px-2 py-1 bg-status-warning/20 text-status-warning rounded text-xs">Investigating</span></span>
+            <span class="text-signal-accent cursor-pointer hover:underline">Flag</span>
+          </div>
+          
+          <!-- Row 3 -->
+          <div class="flex justify-between py-2 border-t border-border-product">
+            <span>16:17:23.888</span>
+            <span class="text-text-muted-dark">REG-02</span>
+            <span>4x Binary Soda (54.04 Bulk)</span>
+            <span>4 items verified in bagging well</span>
+            <span><span class="px-2 py-1 bg-status-success/20 text-status-success rounded text-xs">Cleared</span></span>
+            <span class="text-text-muted-dark">Archived</span>
+          </div>
+          
+          <!-- Row 4 -->
+          <div class="flex justify-between py-2 border-t border-border-product">
+            <span>16:22:05.012</span>
+            <span class="text-text-muted-dark">REG-03</span>
+            <span>Void transaction (previously (33.92))</span>
+            <span>1 item removed manually from register</span>
+            <span><span class="px-2 py-1 bg-status-success/20 text-status-success rounded text-xs">Cleared</span></span>
+            <span class="text-text-muted-dark">Archived</span>
+          </div>
+        </div>
+        
+        <div class="text-xs text-text-muted-dark pt-3 border-t border-border-product flex gap-6">
+          <span>★ Every flagged transaction comes with the clip attached</span>
+          <span>■ Investigations run in the background — nothing to monitor manually</span>
+          <span>◆ Works with the cameras and POS you already run.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 — Use Cases -->
+<section class="w-full bg-surface-light py-20 border-b border-black/5">
+  <div class="max-w-7xl mx-auto px-4 md:px-8">
+    <h2 class="text-headline-lg font-semibold text-brand-dark mb-10">Use Cases</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="bg-white border border-brand-dark/10 rounded-lg p-6 flex items-center justify-center text-center hover:border-brand-dark/30 transition-colors">
+        <span class="text-headline-sm font-semibold text-brand-dark">Sweethearting</span>
+      </div>
+      <div class="bg-white border border-brand-dark/10 rounded-lg p-6 flex items-center justify-center text-center hover:border-brand-dark/30 transition-colors">
+        <span class="text-headline-sm font-semibold text-brand-dark">Void & refund anomalies</span>
+      </div>
+      <div class="bg-white border border-brand-dark/10 rounded-lg p-6 flex items-center justify-center text-center hover:border-brand-dark/30 transition-colors">
+        <span class="text-headline-sm font-semibold text-brand-dark">Under-scanning</span>
+      </div>
+      <div class="bg-white border border-brand-dark/10 rounded-lg p-6 flex items-center justify-center text-center hover:border-brand-dark/30 transition-colors">
+        <span class="text-headline-sm font-semibold text-brand-dark">Suspicious patterns</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 — FAQ / Accordion -->
+<section class="w-full bg-surface-light py-20 border-b border-black/5">
+  <div class="max-w-4xl mx-auto px-4 md:px-8">
+    <h2 class="text-headline-lg font-semibold text-brand-dark mb-12">Frequently Asked Questions</h2>
+    <div class="space-y-0 border-y border-brand-dark/10">
+      
+      <details class="group border-b border-brand-dark/10 py-5 cursor-pointer">
+        <summary class="flex justify-between items-center list-none text-headline-sm font-semibold text-brand-dark focus:outline-none pr-4">
+          <span>Do I need new cameras or a new POS system?</span>
+          <span class="material-symbols-outlined toggle-icon text-text-muted-light">expand_more</span>
+        </summary>
+        <div class="mt-4 text-body-lg text-text-muted-light pr-8">
+          No. Miki connects to the IP cameras and POS terminals you are already running via standard RTSP and API/journal feeds.
+        </div>
+      </details>
+      
+      <details class="group border-b border-brand-dark/10 py-5 cursor-pointer">
+        <summary class="flex justify-between items-center list-none text-headline-sm font-semibold text-brand-dark focus:outline-none pr-4">
+          <span>What happens when Miki flags a transaction?</span>
+          <span class="material-symbols-outlined toggle-icon text-text-muted-light">expand_more</span>
+        </summary>
+        <div class="mt-4 text-body-lg text-text-muted-light pr-8">
+          An investigation opens automatically with the exact synchronized video clip, transaction receipt, and itemized mismatch attached for immediate manager review.
+        </div>
+      </details>
+      
+      <details class="group border-b border-brand-dark/10 py-5 cursor-pointer">
+        <summary class="flex justify-between items-center list-none text-headline-sm font-semibold text-brand-dark focus:outline-none pr-4">
+          <span>How is footage and transaction data handled?</span>
+          <span class="material-symbols-outlined toggle-icon text-text-muted-light">expand_more</span>
+        </summary>
+        <div class="mt-4 text-body-lg text-text-muted-light pr-8">
+          Data is processed on-premise or encrypted in transit using enterprise AES-256 with strict role-based access and automated retention policies matching your compliance mandates.
+        </div>
+      </details>
+      
+      <details class="group border-b border-brand-dark/10 py-5 cursor-pointer">
+        <summary class="flex justify-between items-center list-none text-headline-sm font-semibold text-brand-dark focus:outline-none pr-4">
+          <span>What does a pilot involve?</span>
+          <span class="material-symbols-outlined toggle-icon text-text-muted-light">expand_more</span>
+        </summary>
+        <div class="mt-4 text-body-lg text-text-muted-light pr-8">
+          A structured 90-day pilot across a single store, calibrated against historical loss metrics with zero disruption to daily cashier workflows.
+        </div>
+      </details>
+      
+      <details class="group py-5 cursor-pointer">
+        <summary class="flex justify-between items-center list-none text-headline-sm font-semibold text-brand-dark focus:outline-none pr-4">
+          <span>What should I expect to change?</span>
+          <span class="material-symbols-outlined toggle-icon text-text-muted-light">expand_more</span>
+        </summary>
+        <div class="mt-4 text-body-lg text-text-muted-light pr-8">
+          Expect a fundamental reduction in manual surveillance review hours, rapid investigation resolution times, and systematic deterrence of shrink at checkout.
+        </div>
+      </details>
+      
+    </div>
+  </div>
+</section>
+
+<!-- 07 — Final CTA -->
+<section class="w-full bg-surface-light py-24 border-b border-black/5">
+  <div class="max-w-4xl mx-auto px-4 md:px-8 text-center flex flex-col items-center">
+    <h2 class="text-headline-lg md:text-display font-semibold text-brand-dark max-w-2xl leading-tight">
+      Start making the cameras you already have useful.
+    </h2>
+    <div class="mt-8">
+      <button class="btn-primary">Start a Pilot</button>
+    </div>
+  </div>
+</section>
+
+<!-- 08 — Footer -->
+<footer class="w-full bg-surface-light py-16 border-t border-black/5">
+  <div class="max-w-7xl mx-auto px-4 md:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-black/5">
+      <!-- Left: Logo + Tagline -->
+      <div class="md:col-span-6 flex flex-col items-start gap-4">
+        <div class="flex items-center gap-2">
+          <div class="w-6 h-6 bg-brand-dark rounded-md flex items-center justify-center">
+            <span style="color: white; font-size: 12px; font-weight: 600;">M</span>
+          </div>
+          <span class="text-brand-dark font-semibold">Miki AI</span>
+        </div>
+        <p class="text-body-md text-text-muted-light max-w-sm">
+          Automated surveillance and transaction integrity for modern retail.
+        </p>
+      </div>
+      
+      <!-- Right: Links -->
+      <div class="md:col-span-6 grid grid-cols-3 gap-6">
+        <div>
+          <div class="text-label-md font-semibold text-brand-dark mb-3">Product</div>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-body-sm text-text-muted-light hover:text-brand-dark transition-colors">How it works</a></li>
+            <li><a href="#" class="text-body-sm text-text-muted-light hover:text-brand-dark transition-colors">Integrations</a></li>
+            <li><a href="#" class="text-body-sm text-text-muted-light hover:text-brand-dark transition-colors">Security</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-label-md font-semibold text-brand-dark mb-3">Company</div>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-body-sm text-text-muted-light hover:text-brand-dark transition-colors">About</a></li>
+            <li><a href="#" class="text-body-sm text-text-muted-light hover:text-brand-dark transition-colors">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-label-md font-semibold text-brand-dark mb-3">Legal</div>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-body-sm text-text-muted-light hover:text-brand-dark transition-colors">Privacy Policy</a></li>
+            <li><a href="#" class="text-body-sm text-text-muted-light hover:text-brand-dark transition-colors">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Copyright -->
+    <div class="pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <span class="text-body-sm text-text-muted-light">© 2025 Miki AI, Inc. Enterprise video analytics and transaction integrity.</span>
+      <span class="font-mono text-body-sm text-text-muted-light">SYSTEM REVISION 2.4.1</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

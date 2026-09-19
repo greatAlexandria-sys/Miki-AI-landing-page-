@@ -1,0 +1,9 @@
+{
+  "buildCommand": "",
+  "outputDirectory": ".",
+  "public": true,
+  "github": {
+    "enabled": true,
+    "autoAlias": true
+  }
+}
